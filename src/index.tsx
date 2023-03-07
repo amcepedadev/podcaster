@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { router } from "./router";
 import { RouterProvider } from "react-router-dom";
-import Header from "./features/ui/Header";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -14,7 +13,6 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Header />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
