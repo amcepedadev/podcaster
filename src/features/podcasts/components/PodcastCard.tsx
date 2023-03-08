@@ -28,7 +28,6 @@ const PodcastImage = styled("img")`
   border-radius: 100%;
 `;
 
-
 const PodcastTitle = styled("p")`
   font-size: 18px;
   font-weight: 600;
@@ -43,11 +42,10 @@ const PodcastAuthor = styled("p")`
 `;
 
 export default function PodcastCard({ podcast }: Props) {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function goToDetails() {
-    navigate(`/podcast/${podcast.id.attributes["im:id"]}`)
+    navigate(`/podcast/${podcast.id.attributes["im:id"]}`);
   }
 
   return (

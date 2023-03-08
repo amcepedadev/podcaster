@@ -1,9 +1,9 @@
 export type Podcast = {
   id: {
     attributes: {
-      "im:id": string
-    }
-  },
+      "im:id": string;
+    };
+  };
   "im:name": {
     label: string;
   };
@@ -33,12 +33,12 @@ export type PodcastDetails = {
   releaseDate: string;
   trackTimeMillis: number;
   episodeUrl: string;
-}
+};
 
 export type PodcastDetailsWithEpisodes = {
   podcast: PodcastDetails;
   episodes: Array<PodcastDetails>;
-}
+};
 
 export type PodcastDetailsResponse = {
   results: Array<PodcastDetails>;
