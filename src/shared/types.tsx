@@ -23,3 +23,23 @@ export type PodcastResponse = {
     entry: Array<Podcast>;
   };
 };
+
+export type PodcastDetails = {
+  kind: string;
+  artworkUrl600: string;
+  trackName: string;
+  artistName: string;
+  description: string;
+  releaseDate: string;
+  trackTimeMillis: number;
+  episodeUrl: string;
+}
+
+export type PodcastDetailsWithEpisodes = {
+  podcast: PodcastDetails;
+  episodes: Array<PodcastDetails>;
+}
+
+export type PodcastDetailsResponse = {
+  results: Array<PodcastDetails>;
+};
