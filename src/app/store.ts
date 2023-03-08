@@ -1,9 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { podcastApi } from "../features/podcasts/podcastsAPI";
 
 export const store = configureStore({
   reducer: {
-    //put here all reducers
+    [podcastApi.reducerPath]: podcastApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(podcastApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
