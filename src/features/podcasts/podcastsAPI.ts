@@ -3,12 +3,14 @@ import { PodcastResponse } from "../../shared/types";
 
 export const podcastApi = createApi({
   reducerPath: "podcastApi",
+  keepUnusedDataFor: 3600,
   baseQuery: fetchBaseQuery({
     baseUrl: "https://itunes.apple.com",
   }),
   endpoints: (builder) => ({
     getBestPodcasts: builder.query<PodcastResponse, void>({
       query: () => `/us/rss/toppodcasts/limit=100/genre=1310/json`,
+      keepUnusedDataFor: 3600,
     }),
   }),
 });

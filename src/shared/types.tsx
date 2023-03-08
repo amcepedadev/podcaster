@@ -1,5 +1,10 @@
 export type Podcast = {
-  title: {
+  id: {
+    attributes: {
+      "im:id": string
+    }
+  },
+  "im:name": {
     label: string;
   };
   "im:image": Array<{
