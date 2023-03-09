@@ -33,12 +33,14 @@ const PodcastTitle = styled("p")`
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 3rem;
+  text-align: center;
 `;
 
 const PodcastAuthor = styled("p")`
   font-size: 16px;
   color: gray;
   font-weight: 600;
+  text-align: center;
 `;
 
 export default function PodcastCard({ podcast }: Props) {
