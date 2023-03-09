@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import PodcastDetailsView from "../../features/podcasts/components/PodcastDetailsCard";
+import PodcastDetailsCard from "../../features/podcasts/components/PodcastDetailsCard";
 import { useGetPodcastDetailsQuery } from "../../features/podcasts/podcastsAPI";
 import { PodcastDetailsWithEpisodes } from "../../shared/types";
+import PodcastEpisodesTable from "../../features/podcasts/components/PodcastEpisodesTable";
 
 const Container = styled("div")`
   padding: 20px;
@@ -27,6 +28,7 @@ const CardContainer = styled("div")`
   box-shadow: 0 2px 2px 2px lightgray;
   padding: 13px;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 const TotalEpisodes = styled("p")`
@@ -64,13 +66,6 @@ export default function PodcastDetails() {
     }
   }, [podcastResults]);
 
-  //TODO: move this inside a helper function
-  function millisToMinutesAndSeconds(millis: number) {
-    var minutes: number = Math.floor(millis / 60000);
-    var seconds: number = parseInt(((millis % 60000) / 1000).toFixed(0));
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  }
-
   return (
     <Container>
       {isFetching ? (
@@ -79,7 +74,7 @@ export default function PodcastDetails() {
         <>
           <LeftContent>
             {podcastWithEpisodes?.podcast && (
-              <PodcastDetailsView
+              <PodcastDetailsCard
                 podcastDetails={podcastWithEpisodes?.podcast}
               />
             )}
@@ -91,30 +86,10 @@ export default function PodcastDetails() {
               </TotalEpisodes>
             </CardContainer>
             <CardContainer>
-              <table>
-                <tr>
-                  <th>Title</th>
-                  <th>Date</th>
-                  <th>Duration</th>
-                </tr>
-                {podcastWithEpisodes?.episodes &&
-                  Array.isArray(podcastWithEpisodes?.episodes) &&
-                  podcastWithEpisodes?.episodes.map((episode, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>
-                          <a href={`/podcast/${podcastId}/episode/1`}>
-                            {episode.trackName}
-                          </a>
-                        </td>
-                        <td>{episode.releaseDate}</td>
-                        <td>
-                          {millisToMinutesAndSeconds(episode.trackTimeMillis)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </table>
+              <PodcastEpisodesTable
+                episodes={podcastWithEpisodes?.episodes || []}
+                podcastId={podcastId || ""}
+              />
             </CardContainer>
           </RightContent>
         </>

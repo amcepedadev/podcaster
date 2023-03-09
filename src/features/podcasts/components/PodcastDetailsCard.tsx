@@ -29,19 +29,20 @@ const Separator = styled("div")`
 `;
 
 const PodcastTitleAndArtirstContainer = styled("div")`
-  line-height: 5px;
   padding-left: 10px;
 `;
 
 const PodcastTitle = styled("p")`
   font-size: 23px;
   font-weight: 700;
+  margin-bottom: 0;
 `;
 
 const PodcastAuthor = styled("p")`
   font-size: 17px;
   font-weight: 500;
   font-style: italic;
+  margin-top: 0.2rem;
 `;
 
 const DescriptionTitle = styled("p")`
@@ -59,7 +60,7 @@ const PodcastDescriptionContainer = styled("div")`
   padding-left: 10px;
 `;
 
-export default function PodcastDetailsView(props: Props) {
+export default function PodcastDetailsCard(props: Props) {
   const { podcastDetails } = props;
   const { trackName, artworkUrl600, artistName } = podcastDetails;
 

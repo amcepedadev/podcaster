@@ -3,7 +3,7 @@ import { PodcastDetailsResponse, PodcastResponse } from "../../shared/types";
 
 export const podcastApi = createApi({
   reducerPath: "podcastApi",
-  keepUnusedDataFor: 60,
+  keepUnusedDataFor: 86400, // 24 hours
   baseQuery: fetchBaseQuery({
     baseUrl: "https://itunes.apple.com",
   }),
