@@ -35,11 +35,18 @@ export type PodcastDetails = {
   trackTimeMillis: number;
   episodeUrl: string;
   trackId: number; //podcast id or episode id if it is a podcast or a podcast-episode kind
+  episodeContentType: string;
+  episodeFileExtension: string;
 };
 
 export type PodcastDetailsWithEpisodes = {
   podcast: PodcastDetails;
   episodes: Array<PodcastDetails>;
+};
+
+export type PodcastDetailsWithEpisode = {
+  podcast: PodcastDetails;
+  episode: PodcastDetails;
 };
 
 export type PodcastDetailsResponse = {

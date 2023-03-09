@@ -44,7 +44,7 @@ const EpisodeTitle = styled.a`
 export default function PodcastEpisodesTable(props: Props) {
   const { episodes, podcastId } = props;
 
-  //TODO: move this inside a helper function is needed in other places, by now is staying here
+  //NOTE: move this inside a helper function is needed in other places, by now is staying here
   function millisToMinutesAndSeconds(millis: number) {
     var minutes: number = Math.floor(millis / 60000);
     var seconds: number = parseInt(((millis % 60000) / 1000).toFixed(0));

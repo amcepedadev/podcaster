@@ -18,7 +18,7 @@ const LeftContent = styled("div")`
 
 const RightContent = styled("div")`
   padding-left: 5rem;
-  padding-right: 1.2rem;
+  padding-right: 1.5rem;
   width: 75%;
 `;
 
