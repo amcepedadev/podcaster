@@ -3,6 +3,8 @@ import { useGetBestPodcastsQuery } from "../../features/podcasts/podcastsAPI";
 import { Podcast } from "../../shared/types";
 import styled from "styled-components";
 import PodcastCard from "../../features/podcasts/components/PodcastCard";
+import { startLoading, stopLoading } from "../../features/ui/loadingSlice";
+import { useDispatch } from "react-redux";
 
 const PodcastsGrid = styled.div`
   display: grid;
@@ -43,6 +45,26 @@ const SearchBar = styled.input`
 
 function Home() {
   const { isFetching, data: podcastsRes } = useGetBestPodcastsQuery();
+  const dispatch = useDispatch();
+
+  /** --- START LOADER STATE MANAGEMENT --- */
+  //want to show loading indicator while fetching podcasts
+  useEffect(() => {
+    if (isFetching) {
+      dispatch(startLoading());
+    } else {
+      dispatch(stopLoading());
+    }
+  }, [dispatch, isFetching]);
+
+  //if unloading view, means we're loading another page so start loading indicator
+  useEffect(() => {
+    return () => {
+      dispatch(startLoading());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  /** --- END LOADER STATE MANAGEMENT --- */
 
   const [podcasts, setPodcasts] = useState<Array<Podcast>>([]); // NOTE: saved this in state for easy management of search filter
 
@@ -74,14 +96,14 @@ function Home() {
         />
       </SearchBarAndTotalizerContainer>
       {isFetching ? (
-        <div>Cargando...</div>
+        <div>Loading...</div>
       ) : (
         <PodcastsGrid>
           {podcasts &&
             Array.isArray(podcasts) &&
             podcasts.length > 0 &&
             podcasts.map((podcast, i) => {
-              return <PodcastCard podcast={podcast} />;
+              return <PodcastCard podcast={podcast} key={i} />;
             })}
         </PodcastsGrid>
       )}

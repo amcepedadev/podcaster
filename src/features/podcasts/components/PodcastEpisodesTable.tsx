@@ -2,6 +2,8 @@ import React from "react";
 import { PodcastDetails } from "../../../shared/types";
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
+import { startLoading } from "../../ui/loadingSlice";
 
 type Props = {
   episodes: Array<PodcastDetails>;
@@ -43,6 +45,7 @@ const EpisodeTitle = styled.a`
 
 export default function PodcastEpisodesTable(props: Props) {
   const { episodes, podcastId } = props;
+  const dispatch = useDispatch();
 
   //NOTE: move this inside a helper function is needed in other places, by now is staying here
   function millisToMinutesAndSeconds(millis: number) {
@@ -66,6 +69,7 @@ export default function PodcastEpisodesTable(props: Props) {
               <TableCell>
                 <EpisodeTitle
                   href={`/podcast/${podcastId}/episode/${episode.trackId}`}
+                  onClick={() => dispatch(startLoading())}
                 >
                   {episode.trackName}
                 </EpisodeTitle>
