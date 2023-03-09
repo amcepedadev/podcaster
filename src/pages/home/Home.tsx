@@ -5,15 +5,16 @@ import { Podcast } from "../../shared/types";
 import styled from "styled-components";
 import PodcastCard from "../../features/podcasts/components/PodcastCard";
 
+  const PodcastsGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  `;
+
 function Home() {
   const { isFetching, data: podcastsRes } = useGetBestPodcastsQuery();
 
   const podcasts: Array<Podcast> = podcastsRes?.feed?.entry || [];
 
-  const PodcastsGrid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  `;
 
   return (
     <div className="Home">
