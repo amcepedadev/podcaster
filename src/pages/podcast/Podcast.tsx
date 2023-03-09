@@ -5,6 +5,8 @@ import PodcastDetailsCard from "../../features/podcasts/components/PodcastDetail
 import { useGetPodcastDetailsQuery } from "../../features/podcasts/podcastsAPI";
 import { PodcastDetailsWithEpisodes } from "../../shared/types";
 import PodcastEpisodesTable from "../../features/podcasts/components/PodcastEpisodesTable";
+import { startLoading, stopLoading } from "../../features/ui/loadingSlice";
+import { useDispatch } from "react-redux";
 
 const Container = styled("div")`
   padding: 20px;
@@ -39,6 +41,7 @@ const TotalEpisodes = styled("p")`
 
 export default function PodcastDetails() {
   const { podcastId } = useParams();
+  const dispatch = useDispatch();
 
   const { isFetching, data: podcastDetailsRes } = useGetPodcastDetailsQuery(
     parseInt(podcastId || "")
@@ -65,6 +68,25 @@ export default function PodcastDetails() {
       });
     }
   }, [podcastResults]);
+
+  /** --- START LOADER STATE MANAGEMENT --- */
+  //want to show loading indicator while fetching podcast details
+  useEffect(() => {
+    if (isFetching) {
+      dispatch(startLoading());
+    } else {
+      dispatch(stopLoading());
+    }
+  }, [dispatch, isFetching]);
+
+  //if unloading view, means we're loading another page so start loading indicator
+  useEffect(() => {
+    return () => {
+      dispatch(startLoading());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  /** --- STOP LOADER STATE MANAGEMENT --- */
 
   return (
     <Container>

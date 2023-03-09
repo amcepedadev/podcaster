@@ -3,6 +3,8 @@ import { PodcastDetails } from "../../../shared/types";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { Separator } from "./SharedStyles";
+import { startLoading } from "../../ui/loadingSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {
   podcastDetails: PodcastDetails;
@@ -62,11 +64,13 @@ const PodcastDescriptionContainer = styled("div")`
 export default function PodcastDetailsCard(props: Props) {
   const { podcastDetails, isFromEpisodeDetails } = props;
   const { trackName, artworkUrl600, artistName } = podcastDetails;
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   function toPodcastDetails() {
     if (isFromEpisodeDetails) {
+      dispatch(startLoading());
       navigate(`/podcast/${podcastDetails.trackId}`);
     }
   }

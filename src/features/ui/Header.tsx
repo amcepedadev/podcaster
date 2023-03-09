@@ -1,5 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { useAppSelector } from "../../app/hooks";
 
 const Wrapper = styled("header")`
   padding: 0.5rem 1.5rem;
@@ -19,9 +20,7 @@ const HeaderLeft = styled("div")`
   padding-right: 1rem;
 `;
 
-const HeaderRight = styled("div")`
-  color: red; //TODO: change this once loading func is done
-`;
+const HeaderRight = styled("div")``;
 
 const Title = styled("h2")`
   margin: 0;
@@ -33,7 +32,31 @@ const TitleLink = styled("a")`
   color: #2c78bc;
 `;
 
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const LoadingIndicator = styled.div`
+  animation: ${rotate360} 1s linear infinite;
+  transform: translateZ(0);
+
+  border-top: 2px solid grey;
+  border-right: 2px solid grey;
+  border-bottom: 2px solid grey;
+  border-left: 4px solid #2c78bc;
+  background: transparent;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+`;
+
 function Header() {
+  const { isLoading } = useAppSelector((s) => s.loading);
   return (
     <Wrapper>
       <HeaderInner>
@@ -42,8 +65,8 @@ function Header() {
             <TitleLink href="/">Podcaster</TitleLink>
           </Title>
         </HeaderLeft>
-        <HeaderRight>TBD loading here</HeaderRight>{" "}
-        {/* TODO: change this to loading func */}
+        <HeaderRight>{isLoading && <LoadingIndicator />}</HeaderRight>{" "}
+        {/* TODO: change this to an indicator icon with movement?*/}
       </HeaderInner>
     </Wrapper>
   );
