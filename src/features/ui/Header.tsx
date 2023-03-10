@@ -44,7 +44,6 @@ function Header() {
           </Title>
         </HeaderLeft>
         <HeaderRight>{isLoading && <LoadingIndicator />}</HeaderRight>{" "}
-        {/* TODO: change this to an indicator icon with movement?*/}
       </HeaderInner>
     </Wrapper>
   );
