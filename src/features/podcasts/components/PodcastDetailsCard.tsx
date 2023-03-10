@@ -61,7 +61,6 @@ const PodcastDescription = styled("p")`
 `;
 
 const PodcastDescriptionContainer = styled("div")`
-  line-height: 15px;
   padding-left: 10px;
 `;
 
