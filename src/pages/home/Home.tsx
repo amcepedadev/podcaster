@@ -91,6 +91,7 @@ function Home() {
       <SearchBarAndTotalizerContainer>
         <Totalizer>{podcasts?.length || 0}</Totalizer>
         <SearchBar
+          aria-label="filter-input"
           placeholder="Filter podcasts..."
           onChange={(e) => handleFilterPodcastsBySearch(e)}
         />
