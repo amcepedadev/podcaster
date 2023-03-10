@@ -12,17 +12,20 @@ const CardContainer = styled("div")`
   border-radius: 2px;
   box-shadow: 0 2px 2px 2px lightgray;
   margin: 70px 20px 30px 20px;
-  padding: 50px 20px 5px 20px;
-  position: relative;
+  padding: 0 10px;
   cursor: pointer;
 `;
 
+const ImageContainer = styled("div")`
+  position: relative;
+  bottom: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 3rem;
+`;
+
 const PodcastImage = styled("img")`
-  position: absolute;
-  bottom: 55%;
-  left: 0;
-  right: 0;
-  margin: auto;
   height: 7rem;
   width: 7rem;
   border-radius: 100%;
@@ -34,6 +37,7 @@ const PodcastTitle = styled("p")`
   text-transform: uppercase;
   margin-top: 3rem;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 const PodcastAuthor = styled("p")`
@@ -41,6 +45,7 @@ const PodcastAuthor = styled("p")`
   color: gray;
   font-weight: 600;
   text-align: center;
+  margin-top: 0.1rem;
 `;
 
 export default function PodcastCard({ podcast }: Props) {
@@ -50,9 +55,14 @@ export default function PodcastCard({ podcast }: Props) {
     navigate(`/podcast/${podcast.id.attributes["im:id"]}`);
   }
 
+  //getting the last image as is the one with the highest resolution
+  const lastImage = podcast["im:image"][podcast["im:image"].length - 1];
+
   return (
     <CardContainer onClick={() => goToDetails()}>
-      <PodcastImage src={podcast["im:image"][0].label} alt="" />
+      <ImageContainer>
+        <PodcastImage src={lastImage.label} alt="" />
+      </ImageContainer>
       <PodcastTitle>{podcast["im:name"]?.label || ""}</PodcastTitle>
       <PodcastAuthor>Author: {podcast["im:artist"]?.label || ""}</PodcastAuthor>
     </CardContainer>
