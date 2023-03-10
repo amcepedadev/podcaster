@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
 import { useAppSelector } from "../../app/hooks";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 const Wrapper = styled("header")`
   padding: 0.5rem 1.5rem;
@@ -30,29 +31,6 @@ const Title = styled("h2")`
 const TitleLink = styled("a")`
   text-decoration: none;
   color: #2c78bc;
-`;
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const LoadingIndicator = styled.div`
-  animation: ${rotate360} 1s linear infinite;
-  transform: translateZ(0);
-
-  border-top: 2px solid grey;
-  border-right: 2px solid grey;
-  border-bottom: 2px solid grey;
-  border-left: 4px solid #2c78bc;
-  background: transparent;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
 `;
 
 function Header() {
