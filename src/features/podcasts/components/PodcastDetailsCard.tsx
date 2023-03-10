@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { Separator } from "./SharedStyles";
 import { startLoading } from "../../ui/loadingSlice";
 import { useDispatch } from "react-redux";
+import { useGetBestPodcastsQuery } from "../podcastsAPI";
+import { LoadingIndicator } from "../../ui/LoadingIndicator";
 
 type Props = {
   podcastDetails: PodcastDetails;
@@ -49,13 +51,15 @@ const PodcastAuthor = styled("p")<{ clickable?: boolean }>`
 const DescriptionTitle = styled("p")`
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 0.7rem;
 `;
 
 const PodcastDescription = styled("p")`
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 17px;
   font-style: italic;
+  margin-top: 0;
 `;
+
 const PodcastDescriptionContainer = styled("div")`
   line-height: 15px;
   padding-left: 10px;
@@ -74,6 +78,15 @@ export default function PodcastDetailsCard(props: Props) {
       navigate(`/podcast/${podcastDetails.trackId}`);
     }
   }
+
+  //NOTE: in order to get podcast description (lookup doesn't provide podcast description, only episode's ones) need to get the podcast from the best podcasts list
+  //I know is a little hacky, but the provided API doesn't provide me another solution, or at least I can't find it and as we have it cached doesn't affect too much to the performance
+  const { isFetching, data: podcastsRes } = useGetBestPodcastsQuery();
+  const podcasts = podcastsRes?.feed.entry || [];
+  const currentPodcast = podcasts.find(
+    (podcast) =>
+      parseInt(podcast?.id?.attributes["im:id"]) === podcastDetails.trackId
+  );
 
   return (
     <PodcastDetailsContainer>
@@ -100,7 +113,13 @@ export default function PodcastDetailsCard(props: Props) {
       <Separator />
       <PodcastDescriptionContainer>
         <DescriptionTitle>Description:</DescriptionTitle>
-        <PodcastDescription>Todo</PodcastDescription>
+        {!isFetching && currentPodcast ? (
+          <PodcastDescription>
+            {currentPodcast.summary?.label}
+          </PodcastDescription>
+        ) : (
+          <LoadingIndicator />
+        )}
       </PodcastDescriptionContainer>
     </PodcastDetailsContainer>
   );
