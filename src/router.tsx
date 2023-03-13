@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import PodcastDetails from "./pages/podcast/Podcast";
 import EpisodeDetails from "./pages/podcast/episode/Episode";
 
